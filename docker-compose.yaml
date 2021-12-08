@@ -1,0 +1,11 @@
+version: "3.3"
+services:
+    moosh:
+        image: moosh:0.1
+        restart: unless-stopped
+        volumes:
+            - /home/jlcavazza/workspace/moodle/moodle/moodle:/var/www/html/learn-test
+            - /home/jlcavazza/workspace/moodle/moodle/config.php:/var/www/html/learn-test/config.php
+            - /home/jlcavazza/workspace/moodle/secrets/mysql.pass:/run/secrets/moodle-db.pass
+            - /home/jlcavazza/workspace/moodle/moodle/data:/var/www/moodledata
+            - /home/jlcavazza/workspace/moosh/data:/var/www/mooshdata
