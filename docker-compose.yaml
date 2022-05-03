@@ -1,7 +1,7 @@
 version: "3.3"
 services:
     moosh:
-        image: moosh:0.1
+        image: ulysseus/moosh:0.1
         restart: unless-stopped
         volumes:
             - /home/jlcavazza/workspace/moodle/moodle/moodle:/var/www/html/learn-test
