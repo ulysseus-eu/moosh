@@ -4,8 +4,8 @@ services:
         image: ulysseus/moosh:0.1
         restart: unless-stopped
         volumes:
-            - /home/jlcavazza/workspace/moodle/moodle/moodle:/var/www/html/learn-test
-            - /home/jlcavazza/workspace/moodle/moodle/config.php:/var/www/html/learn-test/config.php
-            - /home/jlcavazza/workspace/moodle/secrets/mysql.pass:/run/secrets/moodle-db.pass
-            - /home/jlcavazza/workspace/moodle/moodle/data:/var/www/moodledata
-            - /home/jlcavazza/workspace/moosh/data:/var/www/mooshdata
+            - ${MOODLE_RUNTIME_DIR}:/var/www/html/${URL_DIRECTORY_ON_WEB_SERVER}
+            - ${CONFIG_PHP_FILE}:/var/www/html/${URL_DIRECTORY_ON_WEB_SERVER}/config.php
+            - ${MYSQL_PASSWORD_FILE}:/run/secrets/moodle-db.pass
+            - ${MOODLE_DATA_DIR}:/var/www/moodledata
+            - ./data:/var/www/mooshdata
