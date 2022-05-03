@@ -1,4 +1,5 @@
 FROM php:7.4
+LABEL maintainer ulysseus
 RUN \
     # Utilities \
     echo -e "\n[i] Install often used tools\n" && \
@@ -6,9 +7,6 @@ RUN \
     apt install -y bzip2 nano curl git-core rsync unzip graphviz libpq-dev && \
     # PHP postgresql extension \
     docker-php-ext-install pdo pdo_pgsql pgsql && \
-    ln -s /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini && \
-    sed -i -e 's/;extension=pgsql/extension=pgsql/' /usr/local/etc/php/php.ini && \
-    sed -i -e 's/;extension=pdo_pgsql/extension=pdo_pgsql/' /usr/local/etc/php/php.ini && \
     \
     # Composer \
     echo "\n[i] Install Composer\n" && \
@@ -21,10 +19,15 @@ RUN \
     echo "\n[i] Install MOOSH\n" && \
     if [ ! -d /opt ]; then mkdir /opt ; fi && \
     cd /opt && \
-    git clone git://github.com/tmuras/moosh.git && \
+    git clone https://github.com/tmuras/moosh.git && \
     cd moosh && \
     rm -rf .git && \
     composer install && \
-    ln -s $PWD/moosh.php /bin/moosh
+    ln -s $PWD/moosh.php /bin/moosh && \
+    mkdir /var/www/.moosh && \
+    chown www-data:www-data /var/www/.moosh
 
+WORKDIR /var/www/html
 ENTRYPOINT ["/bin/bash"]
+USER www-data
+
